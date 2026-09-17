@@ -5532,16 +5532,50 @@
     bfShowStep(bfStep);
   }
 
+  // Narrative brief — prose only, no figures/contact details (safe to screenshot & share).
+  function briefParagraph(b) {
+    if (!b) return '';
+    const a = s => s && s !== '—' ? s : '';
+    const veh = [a(b.brand), a(b.model), a(b.variant)].filter(Boolean).join(' ');
+    const cond = (a(b.condition) || 'stock').toLowerCase();
+    const hasMods = a(b.mods) && !/none/i.test(b.mods);
+    const mission = a(b.mission) ? b.mission.split(',').map(s => s.trim().toLowerCase()).filter(Boolean) : [];
+    const missionTxt = mission.length ? (mission.length === 1 ? 'a ' + mission[0] : mission.slice(0, -1).join(', ') + ' and ' + mission.slice(-1)) : 'a custom build';
+    const use = a(b.use) ? b.use.toLowerCase() : '';
+    const terrain = a(b.terrain) ? b.terrain.toLowerCase() : '';
+    const fuel = a(b.fuel) ? b.fuel.toLowerCase() : '';
+    const trans = a(b.trans) ? b.trans.replace(/\s*\(.*\)/, '').toLowerCase() : '';
+    const first = (a(b.name) || '').split(' ')[0];
+    let p = `${first ? first + ' is bringing' : 'This brief is for'} a ${fuel ? fuel + ' ' : ''}${veh || 'vehicle'}${trans ? ' with a ' + trans + ' gearbox' : ''} to the Bir workshop. `;
+    p += `It arrives ${/stock/.test(cond) ? 'in stock form' : cond}${hasMods ? ', already carrying some prior modifications' : ''}. `;
+    p += `The mission is ${missionTxt}`;
+    p += use ? `, intended primarily as ${/^(a|an|the)\b/.test(use) ? use : 'a ' + use}` : '';
+    p += terrain ? `, running mostly on ${terrain}` : '';
+    p += '. ';
+    if (a(b.goal)) p += `In the owner's words: “${b.goal.trim().replace(/\s+/g, ' ').slice(0, 220)}${b.goal.trim().length > 220 ? '…' : ''}” `;
+    if (a(b.issues)) p += `Known trouble spots have been flagged for the team to inspect first. `;
+    p += `Budget band and timeline are on file with the TPC team, who will come back with a direct assessment and a proposed approach.`;
+    return p;
+  }
+
   function confirmSubmit() {
     document.getElementById('buildSummary').style.display = 'none';
     document.getElementById('buildFormSuccess').style.display = 'flex';
-    if (window.TPC && window.__tpcBrief) TPC.saveRequest('build', window.__tpcBrief);
+    const b = window.__tpcBrief;
+    const bp = document.getElementById('briefPara'), bt = document.getElementById('briefTitle');
+    if (b && bp) { bp.textContent = briefParagraph(b); bt.textContent = b.vehicle || 'Your Build'; document.getElementById('briefCard').style.display = 'block'; }
+    if (window.TPC && b) TPC.saveRequest('build', Object.assign({}, b, { brief_summary: briefParagraph(b) }));
+  }
+  function copyBrief() {
+    const t = document.getElementById('briefTitle').textContent + '\n\n' + document.getElementById('briefPara').textContent + '\n\n— Tribal Punk Customs · tribalpunkcustoms.com';
+    (navigator.clipboard ? navigator.clipboard.writeText(t) : Promise.reject()).then(() => { const b = document.getElementById('copyBriefBtn'); b.textContent = 'Copied ✓'; setTimeout(() => b.textContent = 'Copy Brief', 1800); }).catch(() => alert(t));
   }
 
   function resetBuildForm() {
     document.getElementById('buildFormWrapper').style.display = 'block';
     document.getElementById('buildFormSuccess').style.display = 'none';
     document.getElementById('buildSummary').style.display = 'none';
+    const bc = document.getElementById('briefCard'); if (bc) bc.style.display = 'none';
     document.getElementById('bf-validation-msg')?.remove();
     document.querySelectorAll('#buildFormWrapper input, #buildFormWrapper select, #buildFormWrapper textarea').forEach(el => { el.value = ''; el.style.borderColor = ''; el.style.boxShadow = ''; });
     document.querySelectorAll('.bf-pill.checked').forEach(p => p.classList.remove('checked'));
@@ -6492,6 +6526,15 @@
         <p style="font-family:'Barlow Condensed',sans-serif;font-size:18px;color:var(--fog);max-width:480px;line-height:1.7;margin-bottom:32px;">
           The TPC team will review your vehicle details and come back to you within <strong style="color:var(--amber);">24 hours</strong> with a direct assessment. No fluff. <strong style="color:var(--bone);">Got more than one machine? Submit a separate brief for each.</strong>
         </p>
+        <div id="briefCard" style="display:none;width:100%;max-width:680px;text-align:left;background:var(--charcoal);border:1px solid var(--iron);border-top:3px solid var(--rust);padding:28px 30px;margin:0 auto 32px;clip-path:polygon(0 0,calc(100% - 14px) 0,100% 14px,100% 100%,14px 100%,0 calc(100% - 14px));">
+          <div style="display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:12px;">
+            <div style="font-family:'Barlow Condensed',sans-serif;font-size:12px;letter-spacing:4px;color:var(--amber);text-transform:uppercase;">Your Build Brief</div>
+            <button id="copyBriefBtn" class="btn btn-outline" style="padding:8px 16px;font-size:12px;" onclick="copyBrief()">Copy Brief</button>
+          </div>
+          <div id="briefTitle" style="font-family:'Bebas Neue',sans-serif;font-size:clamp(26px,4vw,38px);letter-spacing:1.5px;color:var(--bone);line-height:1.05;margin-bottom:14px;"></div>
+          <p id="briefPara" style="font-family:'Lora',serif;font-size:16px;line-height:1.8;color:var(--bone);margin:0;text-wrap:pretty;"></p>
+          <div style="font-family:'Barlow Condensed',sans-serif;font-size:12px;letter-spacing:1.5px;color:var(--fog);margin-top:16px;text-transform:uppercase;">Budget, contact details and specifics are kept private — visible only to the TPC team.</div>
+        </div>
         <div style="display:flex;gap:16px;flex-wrap:wrap;justify-content:center;">
           <button class="btn btn-primary" onclick="resetBuildForm()">+ Build Another Vehicle</button>
           <button class="btn btn-outline" onclick="showPage('contact')">Talk to Us Directly</button>
