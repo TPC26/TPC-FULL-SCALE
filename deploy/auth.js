@@ -391,7 +391,7 @@
     document.getElementById('tpcAuth')?.classList.remove('show');
     const wasGate = !!gateThen; gateThen = null;
     // Dismissing the gate without signing in must never leave the Build page exposed.
-    if (wasGate && !isLoggedIn() && document.getElementById('page-build')?.classList.contains('active') && window.showPage) window.showPage('home');
+    if (wasGate && !isLoggedIn() && document.getElementById('page-build')?.classList.contains('active') && window.showPage) window.showPage('home', { fromHash: true });
   }
 
   function setAuthMode(mode) {
@@ -719,7 +719,8 @@
     renderNav();
     installGate();
     // If the raw router already opened Build before the gate existed (deep link /#build), re-run it through the gate.
-    if (document.getElementById('page-build')?.classList.contains('active') && !isLoggedIn()) window.showPage('build', { fromHash: true });
+    if (location.hash === '#build' && !isLoggedIn()) window.showPage('build', { fromHash: true });
+    else if (document.getElementById('page-build')?.classList.contains('active') && !isLoggedIn()) window.showPage('build', { fromHash: true });
     else if (/^#(services|build|about|testimonials|blog|contact)$/.test(location.hash)) window.showPage(location.hash.slice(1), { fromHash: true });
     flushOutbox();
     refreshNewCount();
