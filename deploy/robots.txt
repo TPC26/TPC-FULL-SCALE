@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+Disallow: /Admin.html
+Disallow: /Publish.html
+Disallow: /Site%20Health.html
+
+Sitemap: https://www.tribalpunkcustoms.com/sitemap.xml

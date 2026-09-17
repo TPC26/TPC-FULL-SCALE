@@ -356,7 +356,7 @@
           <h3 id="tpcAuthTitle">Garage Access</h3>
           <p id="tpcAuthSub">Sign in to open the Build Your Vehicle bay.</p>
         </div>
-        <div class="tpc-gate-note" id="tpcGateNote" style="display:none"><i data-lucide="lock"></i><span>Build Your Vehicle is members-only. Create a free account or sign in to continue.</span></div>
+        <div class="tpc-gate-note" id="tpcGateNote" style="display:none"><i data-lucide="lock"></i><span>Build Your Vehicle is members-only. Create a free account or sign in to continue. Direct link: <b style="user-select:all;color:var(--bone)">tribalpunkcustoms.com/#build</b></span></div>
         <div class="tpc-tabs" id="tpcTabs">
           <button class="tpc-tab on" id="tpcTabLogin" onclick="TPC.setAuthMode('login')">Sign In</button>
           <button class="tpc-tab" id="tpcTabSignup" onclick="TPC.setAuthMode('signup')">Create Account</button>
@@ -678,12 +678,13 @@
   function installGate() {
     const orig = window.showPage;
     if (typeof orig !== 'function' || orig.__tpcWrapped) return;
-    const wrapped = function (id) {
+    const wrapped = function (id, opts) {
       if (id === 'build' && !isLoggedIn()) {
-        openAuth('login', { gate: true, then: () => { orig('build'); prefillBuild(); } });
+        if (!(opts && opts.fromHash)) history.pushState({ page: 'build' }, '', location.pathname + '#build');
+        openAuth('login', { gate: true, then: () => { orig('build', { fromHash: true }); prefillBuild(); } });
         return;
       }
-      orig(id);
+      orig(id, opts);
       if (id === 'build') prefillBuild();
     };
     wrapped.__tpcWrapped = true;
@@ -711,6 +712,7 @@
     });
     renderNav();
     installGate();
+    if (/^#(services|build|about|testimonials|blog|contact)$/.test(location.hash)) window.showPage(location.hash.slice(1), { fromHash: true });
     flushOutbox();
     refreshNewCount();
     if (/type=recovery/.test(location.hash) || /[?&]type=recovery/.test(location.search)) openAuth('reset');
