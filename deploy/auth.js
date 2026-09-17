@@ -387,7 +387,12 @@
     if (window.renderIcons) renderIcons();
     setTimeout(() => document.getElementById(mode === 'signup' ? 'au-name' : 'au-email')?.focus(), 60);
   }
-  function closeAuth() { document.getElementById('tpcAuth')?.classList.remove('show'); gateThen = null; }
+  function closeAuth() {
+    document.getElementById('tpcAuth')?.classList.remove('show');
+    const wasGate = !!gateThen; gateThen = null;
+    // Dismissing the gate without signing in must never leave the Build page exposed.
+    if (wasGate && !isLoggedIn() && document.getElementById('page-build')?.classList.contains('active') && window.showPage) window.showPage('home');
+  }
 
   function setAuthMode(mode) {
     authMode = mode;
@@ -681,6 +686,7 @@
     const wrapped = function (id, opts) {
       if (id === 'build' && !isLoggedIn()) {
         if (!(opts && opts.fromHash)) history.pushState({ page: 'build' }, '', location.pathname + '#build');
+        if (document.getElementById('page-build')?.classList.contains('active')) orig('home', { fromHash: true });
         openAuth('login', { gate: true, then: () => { orig('build', { fromHash: true }); prefillBuild(); } });
         return;
       }
@@ -712,7 +718,9 @@
     });
     renderNav();
     installGate();
-    if (/^#(services|build|about|testimonials|blog|contact)$/.test(location.hash)) window.showPage(location.hash.slice(1), { fromHash: true });
+    // If the raw router already opened Build before the gate existed (deep link /#build), re-run it through the gate.
+    if (document.getElementById('page-build')?.classList.contains('active') && !isLoggedIn()) window.showPage('build', { fromHash: true });
+    else if (/^#(services|build|about|testimonials|blog|contact)$/.test(location.hash)) window.showPage(location.hash.slice(1), { fromHash: true });
     flushOutbox();
     refreshNewCount();
     if (/type=recovery/.test(location.hash) || /[?&]type=recovery/.test(location.search)) openAuth('reset');
