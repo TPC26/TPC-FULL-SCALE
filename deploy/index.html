@@ -12,6 +12,18 @@
 <link rel="icon" type="image/png" href="assets/tpc-emblem.png">
 <link rel="apple-touch-icon" href="assets/tpc-emblem.png">
 <meta name="theme-color" content="#080807">
+<script>
+// Google Analytics 4 — paste your Measurement ID (G-XXXXXXXXXX). Leave blank to disable.
+window.GA_ID = 'G-1R4TQKE8W9';
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+if (window.GA_ID) {
+  const s = document.createElement('script'); s.async = true; s.src = 'https://www.googletagmanager.com/gtag/js?id=' + GA_ID; document.head.appendChild(s);
+  gtag('js', new Date());
+  gtag('config', GA_ID, { send_page_view: false, anonymize_ip: true });
+}
+window.tpcTrack = function(name, params){ if (window.GA_ID) gtag('event', name, params || {}); };
+</script>
 <meta name="robots" content="index,follow,max-image-preview:large">
 <meta name="geo.region" content="IN-HP"><meta name="geo.placename" content="Bir, Himachal Pradesh">
 <meta property="og:type" content="website">
@@ -3484,7 +3496,7 @@
 
     <!-- SVG NETWORK MAP -->
     <div class="network-map-container">
-      <svg class="network-svg" viewBox="0 0 820 540" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="TPC India network map">
+      <svg class="network-svg" viewBox="0 -24 820 564" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="TPC India network map">
         <defs>
           <pattern id="nmGrid" width="28" height="28" patternUnits="userSpaceOnUse">
             <path d="M28 0L0 0 0 28" fill="none" stroke="rgba(232,121,10,0.055)" stroke-width="0.5"/>
@@ -3504,15 +3516,16 @@
         </defs>
 
         <!-- Background -->
-        <rect width="820" height="540" fill="#1a1917"/>
-        <rect width="820" height="540" fill="url(#nmGrid)"/>
+        <rect y="-24" width="820" height="564" fill="#1a1917"/>
+        <rect y="-24" width="820" height="564" fill="url(#nmGrid)"/>
 
         <!-- India outline — fitted to city dots: x=27.43*lon+-1863.0, y=-18.44*lat+676.5 -->
-        <polygon id="indiaShape" points="7.7,239.5 24.2,228.4 59.9,222.9 79.1,202.6 87.3,178.6 68.1,160.2 109.2,160.2 164.1,125.2 180.5,104.9 183.3,73.5 202.5,77.2 219.0,56.9 166.8,38.5 175.1,20.0 219.0,-0.2 271.1,21.9 301.2,44.0 295.8,75.4 312.2,97.5 336.9,115.9 358.8,119.6 389.0,128.8 443.9,149.1 490.5,154.7 548.1,176.8 575.5,162.0 592.0,160.2 663.3,176.8 688.0,149.1 748.4,136.2 775.8,134.4 806.0,156.5 797.7,165.7 775.8,173.1 748.4,186.0 731.9,211.8 718.2,235.8 696.2,252.4 690.8,267.1 677.0,272.7 668.8,241.3 649.6,232.1 657.8,213.7 603.0,198.9 600.2,191.5 581.0,195.2 561.8,187.8 553.6,200.8 575.5,228.4 553.6,252.4 548.1,270.8 520.7,281.9 504.2,304.0 471.3,316.9 443.9,339.1 397.2,363.0 361.6,379.6 339.6,388.8 334.2,420.2 339.6,436.8 328.7,457.1 325.9,486.6 309.5,505.0 284.8,512.4 262.8,527.1 246.4,521.6 229.9,499.5 213.5,470.0 191.5,440.5 177.8,409.1 158.6,381.5 144.9,352.0 133.9,324.3 131.2,296.6 128.4,283.7 122.9,265.3 136.7,276.4 112.0,289.3 81.8,294.8 40.7,280.0 29.7,265.3 59.9,261.6 68.1,250.5 32.4,252.4 16.0,245.0" fill="rgba(201,74,0,0.07)" stroke="#c94a00" stroke-width="1.6" stroke-opacity="0.55" stroke-linejoin="round"/>
-        <polygon points="7.7,239.5 24.2,228.4 59.9,222.9 79.1,202.6 87.3,178.6 68.1,160.2 109.2,160.2 164.1,125.2 180.5,104.9 183.3,73.5 202.5,77.2 219.0,56.9 166.8,38.5 175.1,20.0 219.0,-0.2 271.1,21.9 301.2,44.0 295.8,75.4 312.2,97.5 336.9,115.9 358.8,119.6 389.0,128.8 443.9,149.1 490.5,154.7 548.1,176.8 575.5,162.0 592.0,160.2 663.3,176.8 688.0,149.1 748.4,136.2 775.8,134.4 806.0,156.5 797.7,165.7 775.8,173.1 748.4,186.0 731.9,211.8 718.2,235.8 696.2,252.4 690.8,267.1 677.0,272.7 668.8,241.3 649.6,232.1 657.8,213.7 603.0,198.9 600.2,191.5 581.0,195.2 561.8,187.8 553.6,200.8 575.5,228.4 553.6,252.4 548.1,270.8 520.7,281.9 504.2,304.0 471.3,316.9 443.9,339.1 397.2,363.0 361.6,379.6 339.6,388.8 334.2,420.2 339.6,436.8 328.7,457.1 325.9,486.6 309.5,505.0 284.8,512.4 262.8,527.1 246.4,521.6 229.9,499.5 213.5,470.0 191.5,440.5 177.8,409.1 158.6,381.5 144.9,352.0 133.9,324.3 131.2,296.6 128.4,283.7 122.9,265.3 136.7,276.4 112.0,289.3 81.8,294.8 40.7,280.0 29.7,265.3 59.9,261.6 68.1,250.5 32.4,252.4 16.0,245.0" fill="none" stroke="#e8790a" stroke-width="5" stroke-opacity="0.08" stroke-linejoin="round"/>
+        <polygon points="7.7,239.5 24.2,228.4 59.9,222.9 79.1,202.6 87.3,178.6 68.1,160.2 109.2,160.2 164.1,125.2 180.5,104.9 183.3,73.5 202.5,77.2 219.0,56.9 166.8,38.5 175.1,20.0 219.0,-0.2 271.1,21.9 301.2,44.0 295.8,75.4 312.2,97.5 336.9,115.9 358.8,119.6 389.0,128.8 443.9,149.1 490.5,154.7 548.1,176.8 575.5,162.0 592.0,160.2 663.3,176.8 688.0,149.1 748.4,136.2 775.8,134.4 806.0,156.5 797.7,165.7 775.8,173.1 748.4,186.0 731.9,211.8 718.2,235.8 696.2,252.4 690.8,267.1 677.0,272.7 668.8,241.3 649.6,232.1 657.8,213.7 603.0,198.9 600.2,191.5 581.0,195.2 561.8,187.8 553.6,200.8 575.5,228.4 553.6,252.4 548.1,270.8 520.7,281.9 504.2,304.0 471.3,316.9 443.9,339.1 397.2,363.0 361.6,379.6 339.6,388.8 334.2,420.2 339.6,436.8 328.7,457.1 325.9,486.6 309.5,505.0 284.8,512.4 262.8,527.1 246.4,521.6 229.9,499.5 213.5,470.0 191.5,440.5 177.8,409.1 158.6,381.5 144.9,352.0 133.9,324.3 131.2,296.6 128.4,283.7 122.9,265.3 136.7,276.4 112.0,289.3 81.8,294.8 40.7,280.0 29.7,265.3 59.9,261.6 68.1,250.5 32.4,252.4 16.0,245.0" fill="none" stroke="#c94a00" stroke-width="14" stroke-opacity="0.08" stroke-linejoin="round"/>
+        <polygon id="indiaShape" points="7.7,239.5 24.2,228.4 59.9,222.9 79.1,202.6 87.3,178.6 68.1,160.2 109.2,160.2 164.1,125.2 180.5,104.9 183.3,73.5 202.5,77.2 219.0,56.9 166.8,38.5 175.1,20.0 219.0,-0.2 271.1,21.9 301.2,44.0 295.8,75.4 312.2,97.5 336.9,115.9 358.8,119.6 389.0,128.8 443.9,149.1 490.5,154.7 548.1,176.8 575.5,162.0 592.0,160.2 663.3,176.8 688.0,149.1 748.4,136.2 775.8,134.4 806.0,156.5 797.7,165.7 775.8,173.1 748.4,186.0 731.9,211.8 718.2,235.8 696.2,252.4 690.8,267.1 677.0,272.7 668.8,241.3 649.6,232.1 657.8,213.7 603.0,198.9 600.2,191.5 581.0,195.2 561.8,187.8 553.6,200.8 575.5,228.4 553.6,252.4 548.1,270.8 520.7,281.9 504.2,304.0 471.3,316.9 443.9,339.1 397.2,363.0 361.6,379.6 339.6,388.8 334.2,420.2 339.6,436.8 328.7,457.1 325.9,486.6 309.5,505.0 284.8,512.4 262.8,527.1 246.4,521.6 229.9,499.5 213.5,470.0 191.5,440.5 177.8,409.1 158.6,381.5 144.9,352.0 133.9,324.3 131.2,296.6 128.4,283.7 122.9,265.3 136.7,276.4 112.0,289.3 81.8,294.8 40.7,280.0 29.7,265.3 59.9,261.6 68.1,250.5 32.4,252.4 16.0,245.0" fill="#22201b" stroke="#e8790a" stroke-width="1.8" stroke-opacity="0.85" stroke-linejoin="round"/>
+        <polygon points="7.7,239.5 24.2,228.4 59.9,222.9 79.1,202.6 87.3,178.6 68.1,160.2 109.2,160.2 164.1,125.2 180.5,104.9 183.3,73.5 202.5,77.2 219.0,56.9 166.8,38.5 175.1,20.0 219.0,-0.2 271.1,21.9 301.2,44.0 295.8,75.4 312.2,97.5 336.9,115.9 358.8,119.6 389.0,128.8 443.9,149.1 490.5,154.7 548.1,176.8 575.5,162.0 592.0,160.2 663.3,176.8 688.0,149.1 748.4,136.2 775.8,134.4 806.0,156.5 797.7,165.7 775.8,173.1 748.4,186.0 731.9,211.8 718.2,235.8 696.2,252.4 690.8,267.1 677.0,272.7 668.8,241.3 649.6,232.1 657.8,213.7 603.0,198.9 600.2,191.5 581.0,195.2 561.8,187.8 553.6,200.8 575.5,228.4 553.6,252.4 548.1,270.8 520.7,281.9 504.2,304.0 471.3,316.9 443.9,339.1 397.2,363.0 361.6,379.6 339.6,388.8 334.2,420.2 339.6,436.8 328.7,457.1 325.9,486.6 309.5,505.0 284.8,512.4 262.8,527.1 246.4,521.6 229.9,499.5 213.5,470.0 191.5,440.5 177.8,409.1 158.6,381.5 144.9,352.0 133.9,324.3 131.2,296.6 128.4,283.7 122.9,265.3 136.7,276.4 112.0,289.3 81.8,294.8 40.7,280.0 29.7,265.3 59.9,261.6 68.1,250.5 32.4,252.4 16.0,245.0" fill="url(#nmGrid)" opacity="0.6"/>
 
         <!-- Watermark label -->
-        <text x="600" y="500" fill="rgba(46,44,40,0.7)" font-family="Bebas Neue, sans-serif" font-size="52" letter-spacing="14" text-anchor="middle">NETWORK</text>
+        <text x="560" y="425" fill="rgba(60,56,48,0.32)" font-family="Bebas Neue, sans-serif" font-size="44" letter-spacing="14" text-anchor="middle">NETWORK</text>
 
         <!-- ── ROUTE LINES ── -->
         <!-- Mumbai → Delhi (main north artery) -->
@@ -3596,11 +3609,11 @@
         <text x="238" y="92" fill="#f5b830" font-family="Bebas Neue, sans-serif" font-size="8" text-anchor="middle">★</text>
         <!-- Label above -->
         <text x="238" y="63" fill="#f5b830" font-family="Bebas Neue, sans-serif" font-size="13.5" letter-spacing="3" text-anchor="middle">BIR, HP</text>
-        <text x="238" y="52" fill="#c94a00" font-family="Barlow Condensed, sans-serif" font-size="9" letter-spacing="2" text-anchor="middle" font-weight="700">MASTER GARAGE · ★★★★★</text>
+        <text x="238" y="46" fill="#c94a00" font-family="Barlow Condensed, sans-serif" font-size="9" letter-spacing="2" text-anchor="middle" font-weight="700">MASTER GARAGE · ★★★★★</text>
         <!-- Google Maps link button -->
         <a href="https://maps.google.com/?cid=2852626827578505379" target="_blank">
-          <rect x="186" y="37" width="104" height="13" rx="2" fill="rgba(201,74,0,0.18)" stroke="#c94a00" stroke-width="0.8"/>
-          <text x="238" y="47" fill="#e8790a" font-family="Barlow Condensed, sans-serif" font-size="8.5" letter-spacing="1.2" text-anchor="middle" font-weight="600">VIEW ON GOOGLE MAPS ↗</text>
+          <rect x="186" y="20" width="104" height="13" rx="2" fill="rgba(201,74,0,0.18)" stroke="#c94a00" stroke-width="0.8"/>
+          <text x="238" y="30" fill="#e8790a" font-family="Barlow Condensed, sans-serif" font-size="8.5" letter-spacing="1.2" text-anchor="middle" font-weight="600">VIEW ON GOOGLE MAPS ↗</text>
         </a>
 
         <!-- Mumbai → Kerala (south route) -->
@@ -3724,7 +3737,12 @@
           : 'https://web.whatsapp.com/send?phone=' + phone + q;
         a.target = '_blank';
         a.rel = 'noopener';
+        window.tpcTrack && tpcTrack('contact_click', { method: 'whatsapp' });
       } catch (err) { /* leave original href */ }
+    }, true);
+    document.addEventListener('click', (e) => {
+      const a = e.target.closest && e.target.closest('a[href^="tel:"],a[href^="mailto:"]');
+      if (a && window.tpcTrack) tpcTrack('contact_click', { method: a.href.startsWith('tel:') ? 'call' : 'email' });
     }, true);
   })();
 
@@ -3774,6 +3792,7 @@
     document.querySelector('link[rel="canonical"]')?.setAttribute('href', 'https://www.tribalpunkcustoms.com/' + (id === 'home' ? '' : '#' + id));
     window.scrollTo(0, 0);
     closeMobileNav();
+    window.tpcTrack && tpcTrack('page_view', { page_title: m[0], page_location: 'https://www.tribalpunkcustoms.com/' + (id === 'home' ? '' : '#' + id), page_path: '/' + (id === 'home' ? '' : '#' + id) });
   }
   function routeFromHash() {
     const h = (location.hash || '').replace('#', '');

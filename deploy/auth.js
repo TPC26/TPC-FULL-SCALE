@@ -126,6 +126,7 @@
 
   async function saveRequest(type, data) {
     const row = rowFrom(type, data);
+    if (window.tpcTrack) tpcTrack(type === 'signup' ? 'sign_up' : 'generate_lead', { lead_type: type, vehicle: (data && (data.vehicle || data.model)) || undefined, city: (data && data.city) || undefined });
     try {
       const { error } = await sb.from('requests').insert(row);
       if (error) throw error;
