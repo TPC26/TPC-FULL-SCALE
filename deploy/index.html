@@ -476,6 +476,7 @@ window.tpcTrack = function(name, params){ if (window.GA_ID) gtag('event', name, 
     object-fit: cover;
     object-position: center 30%;
     animation: slowZoom 18s ease-in-out infinite;
+    will-change: transform;
     display: block;
   }
   .hero-car-overlay {
@@ -1696,6 +1697,7 @@ window.tpcTrack = function(name, params){ if (window.GA_ID) gtag('event', name, 
   .race-ticker-track {
     display: inline-flex;
     animation: tickerScroll 28s linear infinite;
+    will-change: transform;
     gap: 0;
   }
 
@@ -2321,6 +2323,7 @@ window.tpcTrack = function(name, params){ if (window.GA_ID) gtag('event', name, 
   }
   @media (prefers-reduced-motion: reduce) {
     .hero::after, .page-hero::before, footer::before { animation: none; }
+    .race-ticker-track, .hero-bg image-slot img { animation: none; }
   }
 
   /* ─── ANIMATIONS ─── */
@@ -3786,6 +3789,7 @@ window.tpcTrack = function(name, params){ if (window.GA_ID) gtag('event', name, 
     contact: ['Contact — Book a Consultation | Tribal Punk Customs', 'Bir, Himachal Pradesh master garage. WhatsApp +91 90150 55636. Registered office BKC Mumbai. 9 partner garages across India.']
   };
   function showPage(id, opts) {
+    document.body.style.overflow = '';
     if (!document.getElementById('page-' + id)) id = 'home';
     document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
     document.getElementById('page-' + id).classList.add('active');
