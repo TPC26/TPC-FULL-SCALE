@@ -33,13 +33,13 @@ window.tpcTrack = function(name, params){ if (window.GA_ID) gtag('event', name, 
 <meta property="og:url" content="https://www.tribalpunkcustoms.com/">
 <meta property="og:title" content="Tribal Punk Customs — Performance. Built Different.">
 <meta property="og:description" content="Himalayan garage in Bir, HP. ECU tuning, off-road builds, custom fabrication and expedition caravans. Race-proven since 2016.">
-<meta property="og:image" content="https://www.tribalpunkcustoms.com/assets/tpc-share.png">
+<meta property="og:image" content="https://www.tribalpunkcustoms.com/assets/tpc-share.png?v=2">
 <meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">
 <meta property="og:image:alt" content="Tribal Punk Customs emblem — Performance. Built Different.">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Tribal Punk Customs — Performance. Built Different.">
 <meta name="twitter:description" content="Himalayan garage in Bir, HP. ECU tuning, off-road builds, custom fabrication and expedition caravans. Race-proven since 2016.">
-<meta name="twitter:image" content="https://www.tribalpunkcustoms.com/assets/tpc-share.png">
+<meta name="twitter:image" content="https://www.tribalpunkcustoms.com/assets/tpc-share.png?v=2">
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"AutoRepair","@id":"https://www.tribalpunkcustoms.com/#business","name":"Tribal Punk Customs","alternateName":"TPC","url":"https://www.tribalpunkcustoms.com/","logo":"https://www.tribalpunkcustoms.com/assets/tpc-emblem.png","image":"https://www.tribalpunkcustoms.com/assets/tpc-share.png","description":"Performance tuning, off-road builds, custom fabrication and expedition caravan builds from Bir, Himachal Pradesh.","slogan":"Performance. Built Different.","foundingDate":"2016","telephone":"+91-90150-55636","email":"wishwas@rawexpeditions.com","priceRange":"₹₹₹","address":{"@type":"PostalAddress","streetAddress":"Muhal New Market (3 Puli), Bir Rd, Ahju, Machkehr","addressLocality":"Bir","addressRegion":"Himachal Pradesh","postalCode":"175032","addressCountry":"IN"},"geo":{"@type":"GeoCoordinates","latitude":32.0470,"longitude":76.7180},"areaServed":["Himachal Pradesh","Mumbai","Delhi","Haryana","Chandigarh","Kolkata","Kerala","India"],"openingHoursSpecification":{"@type":"OpeningHoursSpecification","dayOfWeek":["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"],"opens":"10:00","closes":"19:00"},"hasMap":"https://maps.google.com/?cid=2852626827578505379","sameAs":["https://www.instagram.com/tribalpunkcustoms","https://youtube.com/shorts/WwNMP20CtC0"],"makesOffer":[{"@type":"Offer","itemOffered":{"@type":"Service","name":"Performance Tuning & ECU Remapping"}},{"@type":"Offer","itemOffered":{"@type":"Service","name":"Custom Expedition Caravan Builds"}},{"@type":"Offer","itemOffered":{"@type":"Service","name":"Suspension & Off-Road 4x4 Setup"}},{"@type":"Offer","itemOffered":{"@type":"Service","name":"Custom Fabrication — Roll Cages, Racks, Sliders"}},{"@type":"Offer","itemOffered":{"@type":"Service","name":"Expedition Preparation"}}],"potentialAction":{"@type":"ReserveAction","target":"https://www.tribalpunkcustoms.com/#build","name":"Build Your Vehicle"}}</script>
 <template id="__bundler_thumbnail">
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
@@ -203,9 +203,13 @@ window.tpcTrack = function(name, params){ if (window.GA_ID) gtag('event', name, 
   .hamburger {
     display: none;
     flex-direction: column;
+    justify-content: center;
+    align-items: center;
     gap: 5px;
     cursor: pointer;
+    width: 44px; height: 44px;
     padding: 4px;
+    margin: -4px;
   }
   .hamburger span {
     width: 26px; height: 2px;
@@ -306,7 +310,8 @@ window.tpcTrack = function(name, params){ if (window.GA_ID) gtag('event', name, 
      PAGE: HOME
   ════════════════════════════════════ */
   .hero {
-    min-height: 100vh;
+    aspect-ratio: 16/9;
+    min-height: 560px;
     padding-top: 108px;
     display: flex;
     align-items: center;
@@ -1475,8 +1480,8 @@ window.tpcTrack = function(name, params){ if (window.GA_ID) gtag('event', name, 
     border-bottom: 2px solid var(--iron);
     color: var(--bone);
     font-family: 'Barlow', sans-serif;
-    font-size: 15px;
-    padding: 12px 16px;
+    font-size: 16px;
+    padding: 14px 16px;
     outline: none;
     transition: border-color 0.2s;
     appearance: none;
@@ -2172,7 +2177,7 @@ window.tpcTrack = function(name, params){ if (window.GA_ID) gtag('event', name, 
 
   /* ─── RESPONSIVE ─── */
   @media (max-width: 1024px) {
-    .hero { min-height: auto; padding-bottom: 48px; }
+    .hero { padding-bottom: 48px; }
     .hero::after { width: 480px; height: 480px; right: -180px; opacity: 0.05; }
     .hero-left { padding-left: 84px; }
     .page-hero { padding-left: 88px; }
@@ -2196,7 +2201,7 @@ window.tpcTrack = function(name, params){ if (window.GA_ID) gtag('event', name, 
     img, svg, video, iframe, table { max-width: 100%; }
 
     /* HERO — readable, no overflow */
-    .hero { min-height: 86vh; padding-top: 88px; padding-bottom: 44px; }
+    .hero { padding-top: 88px; padding-bottom: 44px; }
     .hero-left { padding: 36px 22px 44px 52px; max-width: 100%; }
     .hero-eyebrow {
       font-size: 10.5px; letter-spacing: 2.5px; margin-bottom: 18px;
@@ -2223,9 +2228,9 @@ window.tpcTrack = function(name, params){ if (window.GA_ID) gtag('event', name, 
     .testimonials-strip { padding: 56px 22px; }
     .testimonials-grid { grid-template-columns: 1fr; }
     footer { padding: 40px 22px 120px; }
-    .gallery-grid { grid-template-columns: 1fr; grid-auto-rows: 200px; }
-    .g-a, .g-b, .g-c { grid-column: span 1; grid-row: span 1; }
-    .blog-thumb { min-height: 180px; }
+    .gallery-grid { grid-template-columns: 1fr; grid-auto-rows: auto; }
+    .g-a, .g-b, .g-c { grid-column: span 1; grid-row: span 1; aspect-ratio: 16/9; height: auto; }
+    .blog-thumb { min-height: 0; aspect-ratio: 16/9; }
     .page-hero::before { width: 320px; height: 320px; right: -120px; opacity: 0.045; }
   }
 
@@ -2272,6 +2277,7 @@ window.tpcTrack = function(name, params){ if (window.GA_ID) gtag('event', name, 
   @media (max-width: 640px) {
     .tribal-rail { width: 38px; opacity: 0.9; }
   }
+
 
   /* ─── GEAR EMBLEM WATERMARKS (brand motif) ─── */
   .hero-left { position: relative; z-index: 2; }
@@ -2337,12 +2343,15 @@ window.tpcTrack = function(name, params){ if (window.GA_ID) gtag('event', name, 
     position: fixed;
     top: 108px;
     left: 0; right: 0;
+    max-height: calc(100vh - 108px);
+    overflow-y: auto;
     background: var(--charcoal);
     border-bottom: 2px solid var(--rust);
     padding: 20px;
     z-index: 999;
     gap: 4px;
   }
+  .nav-mobile-open .nav-links li a { padding: 13px 14px; font-size: 15px; display: block; }
 </style>
 </head>
 <body>
@@ -2397,7 +2406,7 @@ window.tpcTrack = function(name, params){ if (window.GA_ID) gtag('event', name, 
   <!-- HERO -->
   <section class="hero">
     <div class="hero-bg">
-      <image-slot id="hero-build" src="assets/photos/hero-build.webp" style="width:100%;height:100%;display:block" shape="rect" fit="cover" placeholder="Drop your flagship build photo"></image-slot>
+      <image-slot id="hero-build" src="assets/photos/hero-build.png" style="width:100%;height:100%;display:block" shape="rect" fit="cover" placeholder="Drop your flagship build photo"></image-slot>
     </div>
     <div class="hero-scrim"></div>
     <div class="tribal-rail"></div>
