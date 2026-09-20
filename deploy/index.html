@@ -2177,7 +2177,7 @@ window.tpcTrack = function(name, params){ if (window.GA_ID) gtag('event', name, 
 
   /* ─── RESPONSIVE ─── */
   @media (max-width: 1024px) {
-    .hero { padding-bottom: 48px; }
+    .hero { aspect-ratio: auto; min-height: auto; overflow: visible; padding-bottom: 48px; }
     .hero::after { width: 480px; height: 480px; right: -180px; opacity: 0.05; }
     .hero-left { padding-left: 84px; }
     .page-hero { padding-left: 88px; }
