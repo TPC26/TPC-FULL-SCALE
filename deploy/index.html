@@ -321,6 +321,7 @@ window.tpcTrack = function(name, params){ if (window.GA_ID) gtag('event', name, 
   }
 
   img.slot { width:100%; height:100%; display:block; object-fit:cover; }
+  .hero-bg picture { display:block; width:100%; height:100%; }
 
   /* FULL-BLEED HERO BACKGROUND */
   .hero-bg {
@@ -334,15 +335,14 @@ window.tpcTrack = function(name, params){ if (window.GA_ID) gtag('event', name, 
     height: 100%;
     display: block;
   }
-  @media (max-width: 760px) { .hero-bg img.slot { object-position: 78% bottom; } }
   .hero-scrim {
     position: absolute;
     inset: 0;
     z-index: 1;
     pointer-events: none;
     background:
-      linear-gradient(90deg, rgba(10,9,7,0.94) 0%, rgba(10,9,7,0.82) 36%, rgba(10,9,7,0.30) 68%, rgba(10,9,7,0.55) 100%),
-      linear-gradient(0deg, rgba(10,9,7,0.88) 0%, transparent 42%),
+      linear-gradient(90deg, rgba(10,9,7,0.94) 0%, rgba(10,9,7,0.78) 32%, rgba(10,9,7,0.16) 58%, rgba(10,9,7,0.10) 100%),
+      linear-gradient(0deg, rgba(10,9,7,0.60) 0%, transparent 26%),
       linear-gradient(135deg, transparent 60%, rgba(201,74,0,0.10) 100%);
   }
 
@@ -2360,6 +2360,14 @@ window.tpcTrack = function(name, params){ if (window.GA_ID) gtag('event', name, 
     gap: 4px;
   }
   .nav-mobile-open .nav-links li a { padding: 13px 14px; font-size: 15px; display: block; }
+  /* Phones: the BMW gets its own clear band under the nav, text sits below it */
+  @media (max-width: 760px) {
+    .hero { padding-top: calc(70px + (100vw - 40px) / 2.45 + 20px) !important; }
+    .hero .hero-bg { inset: auto; top: 70px; left: 40px; right: 0; height: calc((100vw - 40px) / 2.45); }
+    .hero-bg img.slot { object-position: center center; }
+    .hero-scrim { background: linear-gradient(180deg, transparent 0, transparent calc(70px + (100vw - 40px) / 2.45 - 40px), rgba(10,9,7,1) calc(70px + (100vw - 40px) / 2.45 + 4px)) !important; }
+    .hero .hero-caption { display: none !important; }
+  }
 </style>
 </head>
 <body>
@@ -2414,7 +2422,7 @@ window.tpcTrack = function(name, params){ if (window.GA_ID) gtag('event', name, 
   <!-- HERO -->
   <section class="hero">
     <div class="hero-bg">
-      <img class="slot" id="hero-build" src="assets/photos/hero-trimo.webp" alt="TRIMO Racing BMW 320d build at Tribal Punk Customs, Bir" decoding="async" fetchpriority="high">
+      <picture><source media="(max-width: 760px)" srcset="assets/photos/hero-trimo-mobile.webp"><img class="slot" id="hero-build" src="assets/photos/hero-trimo.webp" alt="TRIMO Racing BMW 320d build at Tribal Punk Customs, Bir" decoding="async" fetchpriority="high"></picture>
     </div>
     <div class="hero-scrim"></div>
     <div class="tribal-rail"></div>
@@ -2450,8 +2458,8 @@ window.tpcTrack = function(name, params){ if (window.GA_ID) gtag('event', name, 
     </div>
 
     <div class="hero-caption">
-      <span class="hero-caption-tag">Flagship Build</span>
-      <span class="hero-caption-name">Himalayan Expedition Caravan</span>
+      <span class="hero-caption-tag">TRIMO Racing</span>
+      <span class="hero-caption-name">BMW 320d Build</span>
     </div>
   </section>
 
