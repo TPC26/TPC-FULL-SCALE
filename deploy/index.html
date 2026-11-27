@@ -2389,17 +2389,37 @@ window.tpcTrack = function(name, params){ if (window.GA_ID) gtag('event', name, 
 <script>
 (function(){
   var L=document.getElementById('tpc-loader'); if(!L) return;
-  var skip=false;
-  try{ skip=!!sessionStorage.getItem('tpcLoaderSeen'); sessionStorage.setItem('tpcLoaderSeen','1'); }catch(e){}
-  if(skip || /bot|crawl|spider|lighthouse|headless/i.test(navigator.userAgent) || (window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches)){ L.parentNode.removeChild(L); return; }
+  if(/bot|crawl|spider|lighthouse|headless/i.test(navigator.userAgent) || (window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches)){ L.parentNode.removeChild(L); return; }
   var root=document.documentElement; root.style.overflow='hidden';
-  var v=L.querySelector('video');
-  function done(){ if(L.classList.contains('done')) return; L.classList.add('done'); root.style.overflow=''; setTimeout(function(){ if(L.parentNode) L.parentNode.removeChild(L); },550); }
-  v.addEventListener('ended',done);
+  var v=L.querySelector('video'); v.loop=true;
+  var MIN_RATE=0.45, MAX_RATE=3.2, MIN_SHOW=1400, MAX_SHOW=8000;
+  var t0=performance.now(), domAt=0, rate=MIN_RATE, loaded=false, loadedAt=0, finished=false;
+  function progress(now){
+    if(loaded) return 1;
+    var rs=document.readyState, p=Math.min(0.6,(now-t0)/9000);           /* creep while HTML streams */
+    if(rs!=='loading'){                                                  /* DOM ready: count images */
+      var imgs=document.images, n=0, c=0;
+      for(var i=0;i<imgs.length;i++){ if(imgs[i].loading==='lazy') continue; n++; if(imgs[i].complete) c++; }
+      if(!domAt) domAt=now;
+      p=Math.max(p,0.4+0.5*(n?c/n:1),0.4+Math.min(0.5,(now-domAt)/7000));
+    }
+    return Math.min(p,0.92);
+  }
+  function done(){ if(finished) return; finished=true; L.classList.add('done'); root.style.overflow=''; setTimeout(function(){ if(L.parentNode) L.parentNode.removeChild(L); },550); }
+  function tick(now){
+    if(finished) return;
+    var target=MIN_RATE+(MAX_RATE-MIN_RATE)*progress(now);
+    rate+=(target-rate)*(loaded?0.25:0.08);
+    try{ v.playbackRate=rate; }catch(e){}
+    var el=now-t0;
+    if((loaded && now-loadedAt>650 && el>MIN_SHOW) || el>MAX_SHOW){ done(); return; }
+    requestAnimationFrame(tick);
+  }
+  window.addEventListener('load',function(){ loaded=true; loadedAt=performance.now(); });
   v.addEventListener('error',done,true);
   L.addEventListener('click',done);
-  setTimeout(done,3200);
   var p=v.play && v.play(); if(p && p.catch) p.catch(function(){ setTimeout(done,700); });
+  requestAnimationFrame(tick);
 })();
 </script>
 
