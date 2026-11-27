@@ -320,17 +320,21 @@ window.tpcTrack = function(name, params){ if (window.GA_ID) gtag('event', name, 
     overflow: hidden;
   }
 
+  img.slot { width:100%; height:100%; display:block; object-fit:cover; }
+
   /* FULL-BLEED HERO BACKGROUND */
   .hero-bg {
     position: absolute;
     inset: 0;
     z-index: 0;
   }
-  .hero-bg image-slot {
+  .hero-bg img.slot {
+    object-position: right bottom;
     width: 100%;
     height: 100%;
     display: block;
   }
+  @media (max-width: 760px) { .hero-bg img.slot { object-position: 78% bottom; } }
   .hero-scrim {
     position: absolute;
     inset: 0;
@@ -712,7 +716,7 @@ window.tpcTrack = function(name, params){ if (window.GA_ID) gtag('event', name, 
     border: 1px solid var(--iron);
     box-shadow: 0 16px 40px rgba(0,0,0,0.5);
   }
-  .gallery-tile image-slot { width: 100%; height: 100%; display: block; }
+  .gallery-tile img.slot { width: 100%; height: 100%; display: block; }
   .gallery-cap {
     position: absolute; left: 0; bottom: 0; z-index: 2;
     background: rgba(10,9,7,0.82); backdrop-filter: blur(6px);
@@ -1247,7 +1251,7 @@ window.tpcTrack = function(name, params){ if (window.GA_ID) gtag('event', name, 
     border: 1px solid var(--iron);
     box-shadow: 0 10px 30px rgba(0,0,0,0.45);
   }
-  .blog-thumb image-slot { width: 100%; height: 100%; display: block; }
+  .blog-thumb img.slot { width: 100%; height: 100%; display: block; }
   .blog-post > .blog-post-meta,
   .blog-post > .blog-post-title,
   .blog-post > .blog-post-excerpt,
@@ -2324,7 +2328,7 @@ window.tpcTrack = function(name, params){ if (window.GA_ID) gtag('event', name, 
   }
   @media (prefers-reduced-motion: reduce) {
     .hero::after, .page-hero::before, footer::before { animation: none; }
-    .race-ticker-track, .hero-bg image-slot img { animation: none; }
+    .race-ticker-track, .hero-bg img.slot { animation: none; }
   }
 
   /* ─── ANIMATIONS ─── */
@@ -2410,7 +2414,7 @@ window.tpcTrack = function(name, params){ if (window.GA_ID) gtag('event', name, 
   <!-- HERO -->
   <section class="hero">
     <div class="hero-bg">
-      <image-slot id="hero-build" src="assets/photos/hero-build.png" style="width:100%;height:100%;display:block" shape="rect" fit="cover" placeholder="Drop your flagship build photo"></image-slot>
+      <img class="slot" id="hero-build" src="assets/photos/hero-trimo.webp" alt="TRIMO Racing BMW 320d build at Tribal Punk Customs, Bir" decoding="async" fetchpriority="high">
     </div>
     <div class="hero-scrim"></div>
     <div class="tribal-rail"></div>
@@ -2780,31 +2784,31 @@ window.tpcTrack = function(name, params){ if (window.GA_ID) gtag('event', name, 
         <div class="section-tag">Selected Work</div>
         <h2 class="section-title" style="font-size:clamp(36px,5vw,64px)">The <em>Builds</em></h2>
       </div>
-      <p class="section-body">Tuning jobs, ground-up fabrication, expedition rigs and podium cars. A look at what leaves the Bir workshop. <strong style="color:var(--bone)">Drop your own photos into any frame.</strong></p>
+      <p class="section-body">Tuning jobs, ground-up fabrication, expedition rigs and podium cars. A look at what leaves the Bir workshop.</p>
     </div>
     <div class="gallery-grid">
       <div class="gallery-tile g-a">
-        <image-slot id="g1" src="assets/photos/g1.webp" shape="rect" fit="cover" placeholder="Drop a hero build photo"></image-slot>
+        <img class="slot" id="g1" src="assets/photos/g1.webp" alt="Tribal Punk Customs build, Bir" loading="lazy" decoding="async">
         <div class="gallery-cap"><span class="gallery-cap-tag">Off-Road</span><span class="gallery-cap-name">Suzuki Jimny — 4×4 Build</span></div>
       </div>
       <div class="gallery-tile g-b">
-        <image-slot id="g2" src="assets/photos/g2.webp" shape="rect" fit="cover" placeholder="Drop a build photo"></image-slot>
+        <img class="slot" id="g2" src="assets/photos/g2.webp" alt="Tribal Punk Customs build, Bir" loading="lazy" decoding="async">
         <div class="gallery-cap"><span class="gallery-cap-tag">Race Proven</span><span class="gallery-cap-name">VW Polo — Drag Build</span></div>
       </div>
       <div class="gallery-tile g-c">
-        <image-slot id="g3" src="assets/photos/g3.webp" shape="rect" fit="cover" placeholder="Drop a build photo"></image-slot>
+        <img class="slot" id="g3" src="assets/photos/g3.webp" alt="Tribal Punk Customs build, Bir" loading="lazy" decoding="async">
         <div class="gallery-cap"><span class="gallery-cap-tag">Overland</span><span class="gallery-cap-name">Himalayan Expedition Caravan</span></div>
       </div>
       <div class="gallery-tile g-c">
-        <image-slot id="g4" src="assets/photos/g4.webp" shape="rect" fit="cover" placeholder="Drop a build photo"></image-slot>
+        <img class="slot" id="g4" src="assets/photos/g4.webp" alt="Tribal Punk Customs build, Bir" loading="lazy" decoding="async">
         <div class="gallery-cap"><span class="gallery-cap-tag">Restomod</span><span class="gallery-cap-name">Skoda Laura</span></div>
       </div>
       <div class="gallery-tile g-c">
-        <image-slot id="g5" src="assets/photos/g5.webp" shape="rect" fit="cover" placeholder="Drop a build photo"></image-slot>
+        <img class="slot" id="g5" src="assets/photos/g5.webp" alt="Tribal Punk Customs build, Bir" loading="lazy" decoding="async">
         <div class="gallery-cap"><span class="gallery-cap-tag">Rock Crawler</span><span class="gallery-cap-name">Maruti Gypsy</span></div>
       </div>
       <div class="gallery-tile g-c">
-        <image-slot id="g6" src="assets/photos/g6.webp" shape="rect" fit="cover" placeholder="Drop a build photo"></image-slot>
+        <img class="slot" id="g6" src="assets/photos/g6.webp" alt="Tribal Punk Customs build, Bir" loading="lazy" decoding="async">
         <div class="gallery-cap"><span class="gallery-cap-tag">Fabrication</span><span class="gallery-cap-name">Roll Cage & Sliders</span></div>
       </div>
     </div>
@@ -3297,7 +3301,7 @@ window.tpcTrack = function(name, params){ if (window.GA_ID) gtag('event', name, 
     <div class="blog-posts">
 
       <div class="blog-post">
-        <div class="blog-thumb"><image-slot id="blog1" src="assets/photos/blog1.webp" shape="rect" fit="cover" placeholder="Drop a photo"></image-slot></div>
+        <div class="blog-thumb"><img class="slot" id="blog1" src="assets/photos/blog1.webp" alt="Tribal Punk Customs blog photo" loading="lazy" decoding="async"></div>
         <div class="blog-post-meta">
           <span class="blog-tag">Caravan Build</span>
           <span class="blog-date">November 2024</span>
@@ -3308,7 +3312,7 @@ window.tpcTrack = function(name, params){ if (window.GA_ID) gtag('event', name, 
       </div>
 
       <div class="blog-post">
-        <div class="blog-thumb"><image-slot id="blog2" src="assets/photos/blog2.webp" shape="rect" fit="cover" placeholder="Drop a photo"></image-slot></div>
+        <div class="blog-thumb"><img class="slot" id="blog2" src="assets/photos/blog2.webp" alt="Tribal Punk Customs blog photo" loading="lazy" decoding="async"></div>
         <div class="blog-post-meta">
           <span class="blog-tag">Performance Tuning</span>
           <span class="blog-date">October 2024</span>
@@ -3319,7 +3323,7 @@ window.tpcTrack = function(name, params){ if (window.GA_ID) gtag('event', name, 
       </div>
 
       <div class="blog-post">
-        <div class="blog-thumb"><image-slot id="blog3" src="assets/photos/blog3.webp" shape="rect" fit="cover" placeholder="Drop a photo"></image-slot></div>
+        <div class="blog-thumb"><img class="slot" id="blog3" src="assets/photos/blog3.webp" alt="Tribal Punk Customs blog photo" loading="lazy" decoding="async"></div>
         <div class="blog-post-meta">
           <span class="blog-tag">Expedition</span>
           <span class="blog-date">September 2024</span>
@@ -3330,7 +3334,7 @@ window.tpcTrack = function(name, params){ if (window.GA_ID) gtag('event', name, 
       </div>
 
       <div class="blog-post">
-        <div class="blog-thumb"><image-slot id="blog4" src="assets/photos/blog4.webp" shape="rect" fit="cover" placeholder="Drop a photo"></image-slot></div>
+        <div class="blog-thumb"><img class="slot" id="blog4" src="assets/photos/blog4.webp" alt="Tribal Punk Customs blog photo" loading="lazy" decoding="async"></div>
         <div class="blog-post-meta">
           <span class="blog-tag">Fabrication</span>
           <span class="blog-date">August 2024</span>
@@ -6588,7 +6592,6 @@ window.tpcTrack = function(name, params){ if (window.GA_ID) gtag('event', name, 
   </section>
 
 </div><!-- /page-build -->
-<script src="assets/image-slot.js"></script>
 <script src="https://unpkg.com/lucide@0.460.0/dist/umd/lucide.min.js"></script>
 <script>
   function renderIcons() { if (window.lucide && lucide.createIcons) lucide.createIcons(); }
