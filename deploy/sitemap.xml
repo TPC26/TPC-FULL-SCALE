@@ -2,9 +2,16 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
   <url>
     <loc>https://www.tribalpunkcustoms.com/</loc>
-    <lastmod>2026-09-21</lastmod>
+    <lastmod>2026-11-27</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
     <image:image><image:loc>https://www.tribalpunkcustoms.com/assets/tpc-share.jpg</image:loc><image:title>Tribal Punk Customs — custom vehicle builds, Bir, Himachal Pradesh</image:title></image:image>
+  </url>
+  <url>
+    <loc>https://www.tribalpunkcustoms.com/tuning/suzuki-jimny/</loc>
+    <lastmod>2026-11-27</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+    <image:image><image:loc>https://www.tribalpunkcustoms.com/assets/photos/jimny-stage2-hero.webp</image:loc><image:title>Suzuki Jimny Stage 2 build, Tribal Punk Customs</image:title></image:image>
   </url>
 </urlset>
