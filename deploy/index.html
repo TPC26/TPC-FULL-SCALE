@@ -12,6 +12,8 @@
 <link rel="icon" type="image/png" href="assets/tpc-emblem.png">
 <link rel="apple-touch-icon" href="assets/tpc-emblem.png">
 <meta name="theme-color" content="#080807">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="preload" as="video" href="/assets/loader/tpc-loader.webm" type="video/webm">
 <meta name="robots" content="index, follow, max-image-preview:large">
 <meta name="google-site-verification" content="UbTv6DyPug-mRZWmaFmiuIKOut5o6QhbAjv9MgcZXog">
 <script>
@@ -2371,6 +2373,35 @@ window.tpcTrack = function(name, params){ if (window.GA_ID) gtag('event', name, 
 </style>
 </head>
 <body>
+<div id="tpc-loader" aria-hidden="true">
+  <video muted playsinline autoplay preload="auto" poster="/assets/loader/tpc-loader-poster.jpg">
+    <source src="/assets/loader/tpc-loader.webm" type="video/webm">
+    <source src="/assets/loader/tpc-loader.mp4" type="video/mp4">
+  </video>
+</div>
+<style>
+#tpc-loader{position:fixed;inset:0;z-index:2147483000;background:#01030a;transition:opacity .5s ease;cursor:pointer}
+#tpc-loader video{width:100%;height:100%;object-fit:cover;display:block}
+@media (min-aspect-ratio:4/5){#tpc-loader video{object-fit:contain}}
+#tpc-loader.done{opacity:0;pointer-events:none}
+</style>
+<script>
+(function(){
+  var L=document.getElementById('tpc-loader'); if(!L) return;
+  var skip=false;
+  try{ skip=!!sessionStorage.getItem('tpcLoaderSeen'); sessionStorage.setItem('tpcLoaderSeen','1'); }catch(e){}
+  if(skip || /bot|crawl|spider|lighthouse|headless/i.test(navigator.userAgent) || (window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches)){ L.parentNode.removeChild(L); return; }
+  var root=document.documentElement; root.style.overflow='hidden';
+  var v=L.querySelector('video');
+  function done(){ if(L.classList.contains('done')) return; L.classList.add('done'); root.style.overflow=''; setTimeout(function(){ if(L.parentNode) L.parentNode.removeChild(L); },550); }
+  v.addEventListener('ended',done);
+  v.addEventListener('error',done,true);
+  L.addEventListener('click',done);
+  setTimeout(done,3200);
+  var p=v.play && v.play(); if(p && p.catch) p.catch(function(){ setTimeout(done,700); });
+})();
+</script>
+
 
 <!-- ─── RACE TICKER ─── -->
 <div class="race-ticker">
