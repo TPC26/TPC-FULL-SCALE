@@ -2360,20 +2360,12 @@ window.tpcTrack = function(name, params){ if (window.GA_ID) gtag('event', name, 
     gap: 4px;
   }
   .nav-mobile-open .nav-links li a { padding: 13px 14px; font-size: 15px; display: block; }
-  /* Phones: dark backdrop, the whole BMW sits between the tagline and the buttons */
-  .hero-car-m { display: none; }
+  /* Phones: full-bleed photo like desktop, zoomed on the front of the BMW */
   @media (max-width: 760px) {
-    .hero-bg img.slot { object-position: center center; }
-    .hero-scrim { background: linear-gradient(180deg, rgba(10,9,7,0.35) 0%, rgba(10,9,7,0) 40%, rgba(10,9,7,0.45) 100%) !important; }
+    .hero-bg img.slot { object-position: center bottom; }
+    .hero-scrim { background: linear-gradient(180deg, rgba(10,9,7,0.85) 0%, rgba(10,9,7,0.65) 45%, rgba(10,9,7,0.30) 70%, rgba(10,9,7,0.50) 100%) !important; }
+    .hero-left .hero-desc, .hero-left .hero-stats, .hero-left .hero-subtitle { text-shadow: 0 1px 10px rgba(0,0,0,0.8); }
     .hero .hero-caption { display: none !important; }
-    .hero-car-m { display: block; margin: 18px -18px 18px -10px; width: auto; max-width: none; height: auto; aspect-ratio: 1200 / 441; object-fit: cover;
-      -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 7%, #000 93%, transparent 100%), linear-gradient(180deg, transparent 0, #000 22%, #000 86%, transparent 100%);
-      -webkit-mask-composite: source-in;
-      mask-image: linear-gradient(90deg, transparent 0, #000 7%, #000 93%, transparent 100%), linear-gradient(180deg, transparent 0, #000 22%, #000 86%, transparent 100%);
-      mask-composite: intersect; }
-    .hero-left .hero-actions { order: 4; }
-    .hero-left .hero-desc { order: 5; margin-top: 28px; }
-    .hero-left .hero-stats { order: 6; }
   }
 </style>
 </head>
@@ -2441,7 +2433,6 @@ window.tpcTrack = function(name, params){ if (window.GA_ID) gtag('event', name, 
         CUSTOMS
       </h1>
       <div class="hero-subtitle">Performance. Built Different.</div>
-      <img class="hero-car-m" src="assets/photos/hero-trimo-car.webp" alt="TRIMO Racing BMW 320d at Tribal Punk Customs, Bir" decoding="async">
       <p class="hero-desc">
         Born in the mountains of Bir, Himachal Pradesh. Started as a travel brand running tours across India's most unforgiving terrains — now building and tuning the machines that master them. Where oxygen is scarce, the build has to be perfect.
       </p>
