@@ -14,7 +14,8 @@
 <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
 <meta name="theme-color" content="#080807">
 <link rel="manifest" href="/site.webmanifest">
-<link rel="preload" as="video" href="/assets/loader/tpc-loader.webm" type="video/webm">
+<link rel="preload" as="image" href="/assets/loader/gear.webp" fetchpriority="high">
+<link rel="preload" as="image" href="/assets/loader/core.webp" fetchpriority="high">
 <meta name="robots" content="index, follow, max-image-preview:large">
 <meta name="google-site-verification" content="UbTv6DyPug-mRZWmaFmiuIKOut5o6QhbAjv9MgcZXog">
 <script>
@@ -2375,15 +2376,17 @@ window.tpcTrack = function(name, params){ if (window.GA_ID) gtag('event', name, 
 </head>
 <body>
 <div id="tpc-loader" aria-hidden="true">
-  <video muted playsinline autoplay preload="auto" poster="/assets/loader/tpc-loader-poster.jpg">
-    <source src="/assets/loader/tpc-loader.webm" type="video/webm">
-    <source src="/assets/loader/tpc-loader.mp4" type="video/mp4">
-  </video>
+  <canvas></canvas>
+  <div class="tl-glow"></div>
+  <div class="tl-badge"><img class="tl-gear" src="/assets/loader/gear.webp" alt=""><img class="tl-core" src="/assets/loader/core.webp" alt=""></div>
 </div>
 <style>
-#tpc-loader{position:fixed;inset:0;z-index:2147483000;background:#01030a;transition:opacity .5s ease;cursor:pointer}
-#tpc-loader video{width:100%;height:100%;object-fit:cover;display:block}
-@media (min-aspect-ratio:4/5){#tpc-loader video{object-fit:contain}}
+#tpc-loader{position:fixed;inset:0;z-index:2147483000;background:radial-gradient(circle at 50% 50%,#0b1224 0,#01030a 62%);transition:opacity .5s ease;cursor:pointer;overflow:hidden}
+#tpc-loader canvas{position:absolute;inset:0;width:100%;height:100%;display:block}
+#tpc-loader .tl-badge,#tpc-loader .tl-glow{position:absolute;left:50%;top:50%;width:min(36vmin,240px);aspect-ratio:1/1;transform:translate(-50%,-50%) scale(.55);will-change:transform}
+#tpc-loader .tl-glow{width:min(70vmin,460px);background:radial-gradient(circle,rgba(255,130,40,.55) 0,rgba(255,90,20,.18) 38%,rgba(255,90,20,0) 68%);opacity:.5}
+#tpc-loader .tl-badge img{position:absolute;inset:0;width:100%;height:100%;display:block}
+#tpc-loader .tl-gear{will-change:transform}
 #tpc-loader.done{opacity:0;pointer-events:none}
 </style>
 <script>
@@ -2391,34 +2394,60 @@ window.tpcTrack = function(name, params){ if (window.GA_ID) gtag('event', name, 
   var L=document.getElementById('tpc-loader'); if(!L) return;
   if(/bot|crawl|spider|lighthouse|headless/i.test(navigator.userAgent) || (window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches)){ L.parentNode.removeChild(L); return; }
   var root=document.documentElement; root.style.overflow='hidden';
-  var v=L.querySelector('video'); v.loop=true;
+  var cv=L.querySelector('canvas'), ctx=cv.getContext('2d'), B=L.querySelector('.tl-badge'), G=L.querySelector('.tl-gear'), GL=L.querySelector('.tl-glow');
   var MIN_RATE=0.45, MAX_RATE=3.2, MIN_SHOW=1400, MAX_SHOW=8000;
-  var t0=performance.now(), domAt=0, rate=MIN_RATE, loaded=false, loadedAt=0, finished=false;
+  var t0=performance.now(), last=t0, domAt=0, rate=MIN_RATE, shown=0, loaded=false, loadedAt=0, finished=false, gone=false, ang=0;
+  var dpr=Math.min(2,window.devicePixelRatio||1), W=0, H=0;
+  function size(){ W=innerWidth; H=innerHeight; cv.width=W*dpr; cv.height=H*dpr; ctx.setTransform(dpr,0,0,dpr,0,0); }
+  size(); addEventListener('resize',size);
+  var COLS=['255,150,50','255,100,40','70,210,200','100,150,255','255,245,230','255,70,90'];
+  var st=[], N=(W*H>700000)?280:190, i;
+  function spawn(s,far){ var a=Math.random()*6.2832, r=0.08+Math.random()*1.1; s.x=Math.cos(a)*r; s.y=Math.sin(a)*r; s.z=far?1:0.05+Math.random()*0.95; s.c=COLS[Math.random()*COLS.length|0]; s.w=0.5+Math.random()*1.3; return s; }
+  for(i=0;i<N;i++) st.push(spawn({},false));
   function progress(now){
     if(loaded) return 1;
-    var rs=document.readyState, p=Math.min(0.6,(now-t0)/9000);           /* creep while HTML streams */
-    if(rs!=='loading'){                                                  /* DOM ready: count images */
+    var p=Math.min(0.6,(now-t0)/9000);                                   /* creep while HTML streams */
+    if(document.readyState!=='loading'){                                 /* DOM ready: count images */
       var imgs=document.images, n=0, c=0;
-      for(var i=0;i<imgs.length;i++){ if(imgs[i].loading==='lazy') continue; n++; if(imgs[i].complete) c++; }
+      for(var k=0;k<imgs.length;k++){ if(imgs[k].loading==='lazy'||imgs[k].closest('#tpc-loader')) continue; n++; if(imgs[k].complete) c++; }
       if(!domAt) domAt=now;
       p=Math.max(p,0.4+0.5*(n?c/n:1),0.4+Math.min(0.5,(now-domAt)/7000));
     }
     return Math.min(p,0.92);
   }
-  function done(){ if(finished) return; finished=true; L.classList.add('done'); root.style.overflow=''; setTimeout(function(){ if(L.parentNode) L.parentNode.removeChild(L); },550); }
+  function done(){ if(finished) return; finished=true; L.classList.add('done'); root.style.overflow=''; setTimeout(function(){ gone=true; if(L.parentNode) L.parentNode.removeChild(L); },550); }
   function tick(now){
-    if(finished) return;
-    var target=MIN_RATE+(MAX_RATE-MIN_RATE)*progress(now);
-    rate+=(target-rate)*(loaded?0.25:0.08);
-    try{ v.playbackRate=rate; }catch(e){}
+    if(gone) return;
+    var dt=Math.min(50,now-last); last=now;
+    var pr=progress(now), target=finished?MAX_RATE*1.9:MIN_RATE+(MAX_RATE-MIN_RATE)*pr;
+    rate+=(target-rate)*(loaded?0.2:0.07);
+    shown+=(pr-shown)*0.05;
+    /* warp streaks */
+    ctx.clearRect(0,0,W,H);
+    var cx=W/2, cy=H/2, R=Math.max(W,H)*0.42, dz=rate*dt*0.00034, trail=dz*(3+rate*2.2);
+    ctx.lineCap='round';
+    for(i=0;i<st.length;i++){
+      var s=st[i]; s.z-=dz;
+      if(s.z<=0.02){ spawn(s,true); continue; }
+      var x1=cx+s.x/s.z*R, y1=cy+s.y/s.z*R, z0=Math.min(1,s.z+trail), x0=cx+s.x/z0*R, y0=cy+s.y/z0*R;
+      if(x1<-50||x1>W+50||y1<-50||y1>H+50){ spawn(s,true); continue; }
+      var al=Math.min(1,(1-s.z)*1.4)*0.9;
+      ctx.strokeStyle='rgba('+s.c+','+al.toFixed(3)+')'; ctx.lineWidth=s.w*(0.6+(1-s.z)*1.6);
+      ctx.beginPath(); ctx.moveTo(x0,y0); ctx.lineTo(x1,y1); ctx.stroke();
+    }
+    /* badge: grows with progress, gear spins with speed */
+    ang=(ang+rate*dt*0.13)%360;
+    var sc=0.55+0.45*(1-Math.pow(1-shown,2))+(finished?0.12:0);
+    B.style.transform='translate(-50%,-50%) scale('+sc.toFixed(4)+')';
+    G.style.transform='rotate('+ang.toFixed(2)+'deg)';
+    GL.style.transform='translate(-50%,-50%) scale('+(sc*(0.9+rate*0.08)).toFixed(4)+')';
+    GL.style.opacity=(0.35+0.2*Math.min(1,rate/MAX_RATE)+0.06*Math.sin(now/90)).toFixed(3);
     var el=now-t0;
-    if((loaded && now-loadedAt>650 && el>MIN_SHOW) || el>MAX_SHOW){ done(); return; }
+    if(!finished && ((loaded && now-loadedAt>650 && el>MIN_SHOW) || el>MAX_SHOW)) done();
     requestAnimationFrame(tick);
   }
   window.addEventListener('load',function(){ loaded=true; loadedAt=performance.now(); });
-  v.addEventListener('error',done,true);
   L.addEventListener('click',done);
-  var p=v.play && v.play(); if(p && p.catch) p.catch(function(){ setTimeout(done,700); });
   requestAnimationFrame(tick);
 })();
 </script>
