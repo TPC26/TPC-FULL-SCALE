@@ -91,6 +91,35 @@ td.gain{color:var(--patina-light);font-weight:600}
 footer{border-top:2px solid var(--rust);padding:34px 0;color:var(--fog);font-size:15px}
 footer .wrap{display:flex;gap:30px;justify-content:space-between;flex-wrap:wrap}
 footer b{color:var(--bone)}
+
+.dyno{background:radial-gradient(120% 90% at 50% 0%,#1a201c 0%,#0d100e 70%);border:1px solid var(--iron);padding:18px 18px 10px;margin-bottom:22px;position:relative}
+.dyno-top{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;margin-bottom:6px}
+.dyno-legend{display:flex;gap:16px;flex-wrap:wrap;font-family:'Barlow Condensed';font-size:13px;letter-spacing:1.5px;text-transform:uppercase;color:var(--fog)}
+.dyno-legend i{display:inline-block;width:22px;height:0;border-top:3px solid;vertical-align:middle;margin-right:6px}
+.dyno-run{font-family:'Barlow Condensed';font-weight:700;letter-spacing:2px;text-transform:uppercase;font-size:13px;background:none;border:1px solid var(--rust);color:var(--amber);padding:7px 14px;cursor:pointer}
+.dyno-rpm{font-family:'Bebas Neue';font-size:22px;color:var(--white);letter-spacing:1px;min-width:120px;text-align:right}
+.dyno-svg{width:100%;height:auto;display:block}
+.dyno-svg .g{stroke:#2b342f;stroke-width:1}
+.dyno-svg .ax{fill:#a09880;font:13px 'Barlow Condensed',sans-serif}
+.dyno-svg .axt{fill:#a09880;font:600 12px 'Barlow Condensed',sans-serif;letter-spacing:2px}
+.dyno-svg .ln{fill:none;stroke-width:3;stroke-linecap:round}
+.dyno-svg .ln.stock{stroke-width:2;opacity:0;transition:opacity .6s}
+.dyno-svg .ln.draw{stroke-dasharray:var(--len);stroke-dashoffset:var(--len)}
+.dyno-svg .area{opacity:0;transition:opacity .8s 2.4s}
+.dyno-svg .scan{stroke:#f5b830;stroke-width:1.5;opacity:0}
+.dyno-svg .pk{opacity:0;transform-box:fill-box;transform-origin:center;transition:opacity .4s var(--d)}
+.dyno-svg .pkt{fill:#f0ece4;font:600 15px 'Barlow Condensed',sans-serif;letter-spacing:1px}
+.dyno-svg .pkt.g2{fill:#54b489}
+.dyno.run .ln.stock{opacity:.85}
+.dyno.run .ln.draw{animation:dydraw 2.6s cubic-bezier(.45,.05,.35,1) forwards}
+.dyno.run .area{opacity:1}
+.dyno.run .scan{animation:dyscan 2.6s cubic-bezier(.45,.05,.35,1) forwards}
+.dyno.run .pk{opacity:1}
+@keyframes dydraw{to{stroke-dashoffset:0}}
+@keyframes dyscan{0%{opacity:.9;transform:translateX(0)}92%{opacity:.9}100%{opacity:0;transform:translateX(760px)}}
+.dyno-cap{font-size:13px;color:var(--fog);margin-top:6px}
+@media(max-width:640px){.dyno{padding:12px 8px 8px}.dyno-svg .ax{font-size:26px}.dyno-svg .axt{font-size:22px}.dyno-svg .pkt{font-size:30px}.dyno-svg .ln{stroke-width:5}.dyno-svg .ln.stock{stroke-width:3.5}.dyno-svg .pk circle{r:9}.dyno-rpm{font-size:20px;min-width:0}.dyno-legend{gap:10px;font-size:12px}}
+@media (prefers-reduced-motion:reduce){.dyno .ln.draw{stroke-dashoffset:0!important;animation:none!important}.dyno .scan{display:none}.dyno .ln.stock,.dyno .area,.dyno .pk{opacity:1!important;transition:none}}
 @media(max-width:820px){.hero,.build{grid-template-columns:1fr}.stats{grid-template-columns:repeat(2,1fr)}.stages{grid-template-columns:1fr}header nav a:not(.cta){display:none}}
 </style>
 </head>
@@ -119,11 +148,33 @@ footer b{color:var(--bone)}
   <section id="results">
     <h2>Measured <em>Stage 2</em> results</h2>
     <p class="sub">Suzuki Jimny JB74W, 1.5 K15B, 4-speed automatic, Bosch ME17.9.64 ECU. Job reference TPC-DYN-J017.</p>
+    <div class="dyno" id="dyno">
+      <div class="dyno-top">
+        <div class="dyno-legend"><span><i style="border-color:#e8790a"></i>Stage 2 power</span><span><i style="border-color:#54b489"></i>Stage 2 torque</span><span><i style="border-color:#a09880;border-top-style:dashed"></i>Stock</span></div>
+        <div style="display:flex;align-items:center;gap:14px"><div class="dyno-rpm" id="dyrpm">2,000 RPM</div><button class="dyno-run" id="dyrun" type="button">&#9654; Run again</button></div>
+      </div>
+      <svg class="dyno-svg" viewBox="0 0 900 420" role="img" aria-label="Dyno chart: Suzuki Jimny stock vs Stage 2 power and torque from 2,000 to 6,500 rpm">
+  <defs><linearGradient id="dyfill" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#e8790a" stop-opacity=".28"/><stop offset="1" stop-color="#e8790a" stop-opacity="0"/></linearGradient></defs>
+  <line x1="70" x2="830" y1="360.0" y2="360.0" class="g"/><text x="60" y="364.0" class="ax" text-anchor="end">0</text><line x1="70" x2="830" y1="312.9" y2="312.9" class="g"/><text x="60" y="316.9" class="ax" text-anchor="end">20</text><line x1="70" x2="830" y1="265.7" y2="265.7" class="g"/><text x="60" y="269.7" class="ax" text-anchor="end">40</text><line x1="70" x2="830" y1="218.6" y2="218.6" class="g"/><text x="60" y="222.6" class="ax" text-anchor="end">60</text><line x1="70" x2="830" y1="171.4" y2="171.4" class="g"/><text x="60" y="175.4" class="ax" text-anchor="end">80</text><line x1="70" x2="830" y1="124.3" y2="124.3" class="g"/><text x="60" y="128.3" class="ax" text-anchor="end">100</text><line x1="70" x2="830" y1="77.1" y2="77.1" class="g"/><text x="60" y="81.1" class="ax" text-anchor="end">120</text><line x1="70" x2="830" y1="30.0" y2="30.0" class="g"/><text x="60" y="34.0" class="ax" text-anchor="end">140</text><text x="840" y="364.0" class="ax">80</text><text x="840" y="298.0" class="ax">100</text><text x="840" y="232.0" class="ax">120</text><text x="840" y="166.0" class="ax">140</text><text x="840" y="100.0" class="ax">160</text><text x="840" y="34.0" class="ax">180</text><text x="70.0" y="382" class="ax" text-anchor="middle">2.0k</text><text x="154.4" y="382" class="ax" text-anchor="middle">2.5k</text><text x="238.9" y="382" class="ax" text-anchor="middle">3.0k</text><text x="323.3" y="382" class="ax" text-anchor="middle">3.5k</text><text x="407.8" y="382" class="ax" text-anchor="middle">4.0k</text><text x="492.2" y="382" class="ax" text-anchor="middle">4.5k</text><text x="576.7" y="382" class="ax" text-anchor="middle">5.0k</text><text x="661.1" y="382" class="ax" text-anchor="middle">5.5k</text><text x="745.6" y="382" class="ax" text-anchor="middle">6.0k</text><text x="830.0" y="382" class="ax" text-anchor="middle">6.5k</text>
+  <text x="20" y="20" class="axt">PS</text><text x="840" y="20" class="axt">Nm</text><text x="450" y="408" class="axt" text-anchor="middle">ENGINE SPEED (RPM)</text>
+  <g class="dy-clip">
+    <path class="area" d="M70.0,280.8 C84.1,275.5 126.3,259.7 154.4,249.2 C182.6,238.8 210.7,228.2 238.9,218.1 C267.0,208.0 295.2,197.9 323.3,188.4 C351.5,178.9 379.6,169.7 407.8,161.3 C435.9,152.9 464.1,144.8 492.2,138.0 C520.4,131.1 548.5,125.5 576.7,120.0 C604.8,114.6 633.0,109.5 661.1,105.2 C689.3,100.9 725.9,96.7 745.6,94.1 C765.3,91.5 765.3,88.7 779.3,89.4 C793.4,90.1 821.6,96.7 830.0,98.1 L830,360 L70,360 Z" fill="url(#dyfill)"/>
+    <path class="ln stock" d="M70.0,288.1 C84.1,283.3 126.3,269.0 154.4,259.4 C182.6,249.7 210.7,239.4 238.9,230.1 C267.0,220.8 295.2,212.1 323.3,203.7 C351.5,195.4 379.6,187.6 407.8,180.2 C435.9,172.7 464.1,165.9 492.2,159.2 C520.4,152.5 548.5,145.7 576.7,140.1 C604.8,134.5 633.0,130.1 661.1,125.5 C689.3,120.8 725.9,115.1 745.6,112.3 C765.3,109.4 765.3,107.3 779.3,108.3 C793.4,109.2 821.6,116.3 830.0,117.9" stroke="#a09880" stroke-dasharray="6 5"/>
+    <path class="ln stock" d="M70.0,270.6 C84.1,263.4 126.3,239.6 154.4,227.3 C182.6,215.1 210.7,204.5 238.9,197.3 C267.0,190.1 295.2,186.9 323.3,184.1 C351.5,181.4 379.6,180.8 407.8,180.8 C435.9,180.8 464.1,182.5 492.2,184.1 C520.4,185.8 548.5,187.4 576.7,190.7 C604.8,194.1 633.0,199.8 661.1,204.2 C689.3,208.7 725.9,214.1 745.6,217.4 C765.3,220.7 765.3,217.4 779.3,224.0 C793.4,230.6 821.6,251.5 830.0,257.0" stroke="#a09880" stroke-dasharray="2 5"/>
+    <path class="ln draw" d="M70.0,233.9 C84.1,226.2 126.3,200.1 154.4,187.4 C182.6,174.7 210.7,165.4 238.9,157.7 C267.0,150.0 295.2,145.1 323.3,141.2 C351.5,137.4 379.6,135.2 407.8,134.6 C435.9,134.1 464.1,135.2 492.2,137.9 C520.4,140.7 548.5,146.2 576.7,151.1 C604.8,156.1 633.0,161.6 661.1,167.6 C689.3,173.7 725.9,183.0 745.6,187.4 C765.3,191.8 765.3,187.4 779.3,194.0 C793.4,200.7 821.6,221.8 830.0,227.3" stroke="#54b489"/>
+    <path class="ln draw" d="M70.0,280.8 C84.1,275.5 126.3,259.7 154.4,249.2 C182.6,238.8 210.7,228.2 238.9,218.1 C267.0,208.0 295.2,197.9 323.3,188.4 C351.5,178.9 379.6,169.7 407.8,161.3 C435.9,152.9 464.1,144.8 492.2,138.0 C520.4,131.1 548.5,125.5 576.7,120.0 C604.8,114.6 633.0,109.5 661.1,105.2 C689.3,100.9 725.9,96.7 745.6,94.1 C765.3,91.5 765.3,88.7 779.3,89.4 C793.4,90.1 821.6,96.7 830.0,98.1" stroke="#e8790a"/>
+  </g>
+  <line class="scan" x1="70" x2="70" y1="30" y2="360"/>
+  <g class="pk" style="--d:2.4s"><circle cx="779.3" cy="89.4" r="6" fill="#e8790a"/><text x="769.3" y="75.4" text-anchor="end" class="pkt">115 PS @ 6,200</text></g>
+  <g class="pk" style="--d:1.6s"><circle cx="407.8" cy="134.6" r="6" fill="#54b489"/><text x="407.8" y="120.6" text-anchor="middle" class="pkt g2">148 Nm @ 4,000</text></g>
+</svg>
+      <p class="dyno-cap">Curves from our dyno card TPC-DYN-J017 (road dyno, crank-referenced).</p>
+    </div>
     <div class="stats">
-      <div class="stat"><div class="n">115 PS</div><div class="l">Peak power · +10 PS</div></div>
-      <div class="stat"><div class="n">148 Nm</div><div class="l">Peak torque · +14 Nm</div></div>
-      <div class="stat"><div class="n">+12 Nm</div><div class="l">At 3,000 rpm</div></div>
-      <div class="stat"><div class="n">+9.8%</div><div class="l">Area under torque curve</div></div>
+      <div class="stat"><div class="n"><span data-count="115">115</span> PS</div><div class="l">Peak power · +10 PS</div></div>
+      <div class="stat"><div class="n"><span data-count="148">148</span> Nm</div><div class="l">Peak torque · +14 Nm</div></div>
+      <div class="stat"><div class="n">+<span data-count="12">12</span> Nm</div><div class="l">At 3,000 rpm</div></div>
+      <div class="stat"><div class="n">+<span data-count="9.8" data-dec="1">9.8</span>%</div><div class="l">Area under torque curve</div></div>
     </div>
     <table>
       <thead><tr><th>Measure</th><th>Stock</th><th>Stage 2</th><th>Gain</th></tr></thead>
@@ -187,5 +238,32 @@ footer b{color:var(--bone)}
   <div><b>Open daily</b><br>10 am – 7 pm<br><a href="tel:+919015055636">+91 90150 55636</a></div>
   <div><b>A unit of</b><br>Raw Expeditions Pvt. Ltd.<br><a href="/">tribalpunkcustoms.com</a></div>
 </div></footer>
+<script>
+(function(){
+  var box=document.getElementById('dyno'); if(!box) return;
+  box.querySelectorAll('.ln.draw').forEach(function(p){ p.style.setProperty('--len', Math.ceil(p.getTotalLength())); });
+  var rpm=document.getElementById('dyrpm'), counters=document.querySelectorAll('[data-count]'), raf;
+  var reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  function ease(t){return t<.5?2*t*t:1-Math.pow(-2*t+2,2)/2}
+  function run(){
+    box.classList.remove('run'); void box.offsetWidth; box.classList.add('run');
+    cancelAnimationFrame(raf); var t0=performance.now(), D=2600;
+    (function tick(now){
+      var t=Math.min(1,(now-t0)/D), e=ease(t);
+      rpm.textContent=Math.round(2000+4500*e).toLocaleString('en-IN')+' RPM';
+      counters.forEach(function(c){ var v=parseFloat(c.dataset.count)*Math.min(1,e*1.05); c.textContent=c.dataset.dec?v.toFixed(1):Math.round(v); });
+      if(t<1) raf=requestAnimationFrame(tick);
+    })(t0);
+    if(window.gtag) gtag('event','dyno_view',{vehicle:'Suzuki Jimny'});
+  }
+  document.getElementById('dyrun').addEventListener('click',run);
+  if(reduce){ box.classList.add('run'); rpm.textContent='6,500 RPM'; return; }
+  counters.forEach(function(c){ c.textContent='0'; });
+  if('IntersectionObserver' in window){
+    var io=new IntersectionObserver(function(es){ es.forEach(function(e){ if(e.isIntersecting){ run(); io.disconnect(); } }); },{threshold:.35});
+    io.observe(box);
+  } else run();
+})();
+</script>
 </body>
 </html>
